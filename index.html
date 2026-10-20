@@ -1,9 +1,16 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OpticEarth • Profile</title>
+  <link rel="icon" type="image/png" href="./favicon.png">
+  <link rel="shortcut icon" type="image/png" href="./favicon.png">
+  <link rel="apple-touch-icon" href="./favicon.png">
+  <meta property="og:title" content="OpticEarth • Profile">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./favicon.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:image" content="./favicon.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700;800&family=Abril+Fatface&display=swap');
     
@@ -181,7 +188,7 @@
       box-shadow: 0 10px 40px rgba(0,0,0,0.5), inset 0 0 40px rgba(57, 255, 20, 0.05);
       flex-wrap: wrap;
     }
-    .info-btn-section {
+    .mech-btn-section {
       position: absolute;
       top: 18px;
       left: 22px;
@@ -232,7 +239,7 @@
         transform: rotate(360deg);
       }
     }
-    .info-btn-tooltip {
+    .mech-btn-tooltip {
       position: absolute;
       left: 115%;
       opacity: 0;
@@ -249,7 +256,7 @@
       white-space: nowrap;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     }
-    .info-btn-section:hover .info-btn-tooltip {
+    .mech-btn-section:hover .mech-btn-tooltip {
       opacity: 1;
       transform: translateX(4px);
     }
@@ -807,14 +814,14 @@
       fill: var(--status-color);
       filter: drop-shadow(0 0 5px var(--status-color));
     }
-    #game-popup-card .info {
+    #game-popup-card .game-meta {
       display: inline-block;
       vertical-align: top;
       margin-top: 22px;
       width: 125px;
     }
   
-    #game-popup-card .info-1 {
+    #game-popup-card .game-meta-1 {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -830,7 +837,7 @@
       text-transform: uppercase;
       text-shadow: 0 0 6px var(--status-color);
     }
-    #game-popup-card .info-2 {
+    #game-popup-card .game-meta-2 {
       display: flex;
       align-items: center;
       min-height: 20px;
@@ -990,9 +997,9 @@
     .playstation-input:has(#triangle:active) { box-shadow: 0px -5px 10px rgb(64, 226, 160); }
     .playstation-input:has(#square:active) { box-shadow: 0px -5px 10px rgb(255, 105, 248); }
     .cards-wrapper { padding: 0; position: relative; z-index: 1; }
-    .cards-grid-3d { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "info favs" "info play"; gap: 30px; }
+    .cards-grid-3d { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "bio favs" "bio play"; gap: 30px; }
     .parent-3d { perspective: 1000px; width: 100%; height: 100%; display: flex; flex-direction: column; }
-    .grid-info { grid-area: info; } .grid-favs { grid-area: favs; } .grid-play { grid-area: play; }
+    .grid-bio { grid-area: bio; } .grid-favs { grid-area: favs; } .grid-play { grid-area: play; }
     .card-3d { padding-top: 50px; border-radius: 16px; border: 3px solid var(--panel); transform-style: preserve-3d; background: linear-gradient(135deg, transparent 18.75%, rgba(0, 255, 204, 0.05) 0 31.25%, transparent 0), repeating-linear-gradient(45deg, rgba(0, 255, 204, 0.05) -6.25% 6.25%, var(--panel) 0 18.75%); background-size: 60px 60px; background-color: var(--panel); width: 100%; flex: 1; display: flex; flex-direction: column; box-shadow: rgba(0, 255, 204, 0.1) 0px 30px 40px -10px, 0 10px 20px rgba(0,0,0,0.8); transition: all 0.5s ease-in-out; position: relative; }
     .card-3d:hover { background-position: -100px 100px, -100px 100px; transform: rotate3d(0.5, 1, 0, 15deg); box-shadow: rgba(0, 255, 204, 0.2) -20px 30px 40px -10px, 0 10px 20px rgba(0,0,0,0.8); z-index: 10; }
     .content-box-3d { background: #111; border: 2px solid var(--lime); border-radius: 12px; transition: all 0.5s ease-in-out; padding: 50px 25px 25px 25px; transform-style: preserve-3d; flex: 1; display: flex; flex-direction: column; }
@@ -1121,7 +1128,7 @@
 
       .hero { flex-direction: column; text-align: center; gap: 40px; }
       .hero-text { align-items: center; }
-      .cards-grid-3d { grid-template-columns: 1fr; grid-template-areas: "info" "favs" "play"; }
+      .cards-grid-3d { grid-template-columns: 1fr; grid-template-areas: "bio" "favs" "play"; }
       .switch-wrapper { margin-left: 0; justify-content: center; }
     }
     @media (max-width: 600px) {
@@ -1147,26 +1154,26 @@
   <div class="parallax-bg" id="parallax-bg"></div>
 
   <div class="floating-logo">
-    <a href="./index.html">
-      <img src="./lime-logo-nobg.png" alt="i" onerror="this.style.display='none'; this.parentElement.innerText='i';" />
+    <a href="https://www.limenetwork.dev/">
+      <img src="./lime-logo-nobg.png" alt="LiME" onerror="this.style.display='none'; this.parentElement.innerText='LiME';" />
     </a>
   </div>
 
   <nav class="right-nav-dock">
     <ul>
-      <li><a href="https://www.limenetwork.dev/" class="wsite-menu-item">info</a></li>
-      <li><a href="https://limenetwork.dev/join" class="wsite-menu-item">Join</a></li>
-      <li><a href="https://limenetwork.dev/rules" class="wsite-menu-item">Rules</a></li>
-      <li><a href="https://limenetwork.dev/browser" class="wsite-menu-item">Browser</a></li>
-      <li><a href="https://limenetwork.dev/staff" class="wsite-menu-item">Staff</a></li>
-      <li><a href="#" class="wsite-menu-item">Feedback</a></li>
+      <li><a href="https://www.limenetwork.dev/" class="wsite-menu-item">Info</a></li>
+      <li><a href="https://www.limenetwork.dev/join" class="wsite-menu-item">Join</a></li>
+      <li><a href="https://www.limenetwork.dev/rules" class="wsite-menu-item">Rules</a></li>
+      <li><a href="https://www.limenetwork.dev/browser" class="wsite-menu-item">Browser</a></li>
+      <li><a href="https://www.limenetwork.dev/staff" class="wsite-menu-item">Staff</a></li>
+      <li><a href="https://www.limenetwork.dev/feedback" class="wsite-menu-item">Feedback</a></li>
     </ul>
   </nav>
 
   <div class="layout-container">
     <div class="hero">
-      <section class="info-btn-section">
-        <div class="gear-button" id="info-btn" role="button" tabindex="0" aria-label="Show profile mechanics">
+      <section class="mech-btn-section">
+        <div class="gear-button" id="mech-btn" role="button" tabindex="0" aria-label="Show profile mechanics">
           <svg
             class="icon"
             viewbox="0 0 1024 1024"
@@ -1179,7 +1186,7 @@
             ></path>
           </svg>
         </div>
-        <span class="info-btn-tooltip">Mechanics</span>
+        <span class="mech-btn-tooltip">Mechanics</span>
       </section>
 
       <div class="mechanics-popup" id="mechanics-popup">
@@ -1285,9 +1292,9 @@
             <!-- Thank you github-bishwajeet for the game showcase --> 
             <div class="card" id="game-popup-card">
               <label class="avatar" id="game-popup-avatar"></label>
-              <label class="info">
-                <span class="info-1" id="game-popup-badge">Playing</span>
-                <span class="info-2" id="game-popup-name"></span>
+              <label class="game-meta">
+                <span class="game-meta-1" id="game-popup-badge">Playing</span>
+                <span class="game-meta-2" id="game-popup-name"></span>
               </label>
               <div class="content-1" id="game-popup-desc"></div>
               <div class="content-2" id="game-popup-stats"></div>
@@ -1322,7 +1329,7 @@
     <!-- Game cards -->
     <div class="cards-wrapper">
       <div class="cards-grid-3d">
-        <div class="parent-3d grid-info">
+        <div class="parent-3d grid-bio">
           <div class="card-3d">
             <div class="content-box-3d">
               <span class="card-title-3d">WHO I AM</span>
@@ -1560,7 +1567,7 @@
       parallaxBg.style.transform = `translate3d(0, -${offset}px, 0)`;
     }, { passive: true });
 
-    const infoBtn = document.getElementById('info-btn');
+    const mechBtn = document.getElementById('mech-btn');
     const mechanicsPopup = document.getElementById('mechanics-popup');
     const mechanicsClose = document.getElementById('mechanics-close');
     const mechanicsTimerBar = document.getElementById('mechanics-timer-bar');
@@ -1581,7 +1588,7 @@
       mechanicsPopup.classList.remove('active');
     }
 
-    infoBtn.addEventListener('click', (e) => {
+    mechBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       if (mechanicsPopup.classList.contains('active')) {
         hideMechanicsPopup();
@@ -1596,7 +1603,7 @@
     });
 
     document.addEventListener('click', (e) => {
-      if (!mechanicsPopup.contains(e.target) && !infoBtn.contains(e.target)) {
+      if (!mechanicsPopup.contains(e.target) && !mechBtn.contains(e.target)) {
         hideMechanicsPopup();
       }
     });
@@ -1842,7 +1849,7 @@
         statusMusicBox.classList.add("has-game");
 
         const watching = isWatchingActivity(gameActivity);
-        const badgeEl = document.getElementById("game-popup-badge") || document.querySelector("#game-popup-card .info-1");
+        const badgeEl = document.getElementById("game-popup-badge") || document.querySelector("#game-popup-card .game-meta-1");
         if (badgeEl) {
           badgeEl.innerText = watching ? "Watching" : "Playing";
         }
