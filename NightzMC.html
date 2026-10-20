@@ -4,11 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Nightz MC • Profile</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&display=swap');
 
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="LiME Network" />
+  <meta property="og:title" content="Nightz MC • LiME Admin" />
+  <meta property="og:description" content="Admin • LiME Network — Check out Nightz MC's live profile and favorite games." />
+  <meta property="og:image" content="https://limenetwork.dev/favicon.png" />
+  <meta name="theme-color" content="#cc133c" id="metaThemeColor" />
+
+  <link rel="icon" type="image/png" href="https://limenetwork.dev/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Abril+Fatface&family=Lato:wght@400;700;900&family=Orbitron:wght@700;900&family=Press+Start+2P&display=swap" rel="stylesheet">
+
+  <style>
     :root {
-      /* Default to redDND to match mini-profile */
+      /* Default to red DND */
       --theme-main: #cc133c;
       --theme-main-rgb: 204, 19, 60;
       --theme-dark: #8b0000;
@@ -18,13 +27,13 @@
       --theme-light: #ff99a8;
       --theme-lighter: #ffdce0;
 
-      --hero-bg: #0c0a0c;
-      --section-bg: rgba(12, 10, 12, 0.55);
+      --hero-bg: rgba(12, 10, 14, 0.85);
+      --section-bg: rgba(12, 10, 14, 0.68);
       --text-main: #f5f0f0;
     }
 
-    /* --- Live theme based off dc --- */
-    .nightz-profile-wrapper.online {
+    /* --- Live theme based off Discord stats, by OpticEarth :> --- */
+    body.online {
       --theme-main: #23a55a;
       --theme-main-rgb: 35, 165, 90;
       --theme-dark: #146e37;
@@ -35,7 +44,7 @@
       --theme-lighter: #cbf4d9;
     }
 
-    .nightz-profile-wrapper.idle {
+    body.idle {
       --theme-main: #f0961e;
       --theme-main-rgb: 240, 150, 30;
       --theme-dark: #b45f00;
@@ -46,7 +55,7 @@
       --theme-lighter: #ffe8c7;
     }
 
-    .nightz-profile-wrapper.dnd {
+    body.dnd {
       --theme-main: #cc133c;
       --theme-main-rgb: 204, 19, 60;
       --theme-dark: #8b0000;
@@ -57,7 +66,7 @@
       --theme-lighter: #ffdce0;
     }
 
-    .nightz-profile-wrapper.offline {
+    body.offline {
       --theme-main: #80848e;
       --theme-main-rgb: 128, 132, 142;
       --theme-dark: #313338;
@@ -68,28 +77,221 @@
       --theme-lighter: #e3e5e8;
     }
 
-    /* Weebly fixer */
-    .nightz-profile-wrapper {
-      font-family: 'Press Start 2P', system-ui;
-      background: transparent !important;
-      color: var(--text-main);
-      line-height: 1.75;
-      padding: 25px 15px;
-      width: 100%;
+    *, *::before, *::after {
       box-sizing: border-box;
-      transition: all 0.8s ease; /* Smooth transition between statuses */
     }
 
-    .nightz-profile-wrapper * {
-      box-sizing: border-box;
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      background-color: #070609;
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* --- Responsive live-theme background --- */
+    .live-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+      background: #070609;
+    }
+
+    /* Ambient shifting color orbs */
+    .live-bg::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(var(--theme-main-rgb), 0.24) 0%, transparent 45%),
+        radial-gradient(circle at 82% 78%, rgba(var(--theme-accent-rgb), 0.18) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(var(--theme-dark-rgb), 0.3) 0%, rgba(7, 6, 9, 0.96) 75%);
+      filter: blur(30px);
+      animation: ambientPulse 8s ease-in-out infinite alternate;
+      transition: background 0.8s ease;
+    }
+
+    /* Animated cyber grid reactive to status color */
+    .live-bg-grid {
+      position: absolute;
+      inset: -100% -50%;
+      background-image:
+        linear-gradient(to right, rgba(var(--theme-main-rgb), 0.14) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(var(--theme-main-rgb), 0.14) 1px, transparent 1px);
+      background-size: 55px 55px;
+      transform: perspective(650px) rotateX(58deg);
+      animation: gridMove 14s linear infinite;
+      mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.85) 10%, transparent 75%);
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, rgba(0,0,0,0.85) 10%, transparent 75%);
+      transition: background-image 0.8s ease, opacity 0.8s ease;
+    }
+
+    /* Used ai for some of this */
+    .live-bg-vignette {
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.18) 0px,
+          rgba(0, 0, 0, 0.18) 1px,
+          transparent 1px,
+          transparent 3px
+        ),
+        radial-gradient(circle at 50% 50%, transparent 45%, rgba(4, 3, 6, 0.85) 100%);
+    }
+
+    body.offline .live-bg::before {
+      animation: none;
+      opacity: 0.45;
+    }
+
+    body.offline .live-bg-grid {
+      animation-play-state: paused;
+      opacity: 0.25;
+    }
+
+    @keyframes ambientPulse {
+      0% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1.08) translate(2%, -2%); }
+    }
+
+    @keyframes gridMove {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 55px; }
+    }
+
+    /* --- Top-left Floating logo --- */
+    .floating-logo {
+      position: fixed;
+      top: 25px;
+      left: 35px;
+      z-index: 1000;
+    }
+
+    .floating-logo a {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: #39ff14;
+      font-family: 'Abril Fatface', serif;
+      font-size: 1.8em;
+      text-shadow: 0 0 12px rgba(57, 255, 20, 0.35);
+    }
+
+    .floating-logo img {
+      height: 48px;
+      width: auto;
+      display: block;
+      filter: drop-shadow(0 0 8px rgba(57, 255, 20, 0.25));
+      transition: transform 0.25s ease, filter 0.25s ease;
+    }
+
+    .floating-logo a:hover img {
+      transform: scale(1.06);
+      filter: drop-shadow(0 0 14px rgba(57, 255, 20, 0.55));
+    }
+
+    /* --- Peek right buttons --- */
+    .right-nav-dock {
+      position: fixed;
+      top: 50%;
+      right: 0;
+      /* peeping top */
+      transform: translateY(-50%) translateX(calc(100% - 14px));
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(57, 255, 20, 0.35);
+      border-right: none;
+      border-radius: 16px 0 0 16px;
+      padding: 12px 14px 12px 18px;
+      z-index: 1000;
+      box-shadow: -4px 8px 32px rgba(0, 0, 0, 0.6), 0 0 15px rgba(57, 255, 20, 0.12);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+    }
+
+    /* Glowing bar on the peeking edge */
+    .right-nav-dock::before {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 46px;
+      background: #39ff14;
+      border-radius: 4px;
+      box-shadow: 0 0 10px #39ff14;
+      opacity: 0.85;
+      transition: opacity 0.25s ease, height 0.25s ease;
+    }
+
+    .right-nav-dock:hover,
+    .right-nav-dock:focus-within {
+      transform: translateY(-50%) translateX(0);
+      box-shadow: -8px 12px 38px rgba(0, 0, 0, 0.75), 0 0 22px rgba(57, 255, 20, 0.22);
+      border-color: rgba(57, 255, 20, 0.55);
+    }
+
+    .right-nav-dock:hover::before,
+    .right-nav-dock:focus-within::before {
+      opacity: 0.25;
+      height: 24px;
+    }
+
+    .right-nav-dock ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: right;
+    }
+
+    .right-nav-dock a.nav-item {
+      display: block;
+      padding: 9px 16px;
+      color: #ddd;
+      text-decoration: none;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14.5px;
+      border-radius: 10px;
+      border-right: 3px solid transparent;
+      transition: all 0.25s ease;
+      white-space: nowrap;
+    }
+
+    .right-nav-dock a.nav-item:hover,
+    .right-nav-dock a.nav-item.active {
+      color: #39ff14;
+      background: rgba(57, 255, 20, 0.12);
+      border-right: 3px solid #39ff14;
+      transform: translateX(-3px);
+      text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+    }
+
+    /* --- Profile Layout --- */
+    .nightz-profile-wrapper {
+      position: relative;
+      z-index: 2;
+      font-family: 'Press Start 2P', system-ui;
+      background: transparent;
+      color: var(--text-main);
+      line-height: 1.75;
+      padding: 90px 20px 70px;
+      width: 100%;
+      transition: all 0.8s ease;
     }
 
     .nightz-container {
       max-width: 1050px;
       margin: 0 auto;
-      background: transparent !important;
-      border: none !important;
-      box-shadow: none !important;
       display: flex;
       flex-direction: column;
       gap: 0;
@@ -98,14 +300,14 @@
     /* Glow */
     @keyframes globalGlowShift {
       0%, 100% {
-        box-shadow: 0 0 65px rgba(var(--theme-main-rgb), 0.65), 
-                    0 0 40px rgba(var(--theme-dark-rgb), 0.55), 
-                    inset 0 0 25px rgba(var(--theme-main-rgb), 0.3);
+        box-shadow: 0 0 65px rgba(var(--theme-main-rgb), 0.55), 
+                    0 0 40px rgba(var(--theme-dark-rgb), 0.45), 
+                    inset 0 0 25px rgba(var(--theme-main-rgb), 0.25);
       }
       50% {
-        box-shadow: 0 0 100px rgba(var(--theme-accent-rgb), 0.8), 
-                    0 0 60px rgba(var(--theme-main-rgb), 0.75), 
-                    inset 0 0 35px rgba(var(--theme-main-rgb), 0.4);
+        box-shadow: 0 0 95px rgba(var(--theme-accent-rgb), 0.7), 
+                    0 0 60px rgba(var(--theme-main-rgb), 0.65), 
+                    inset 0 0 35px rgba(var(--theme-main-rgb), 0.35);
       }
     }
 
@@ -113,7 +315,7 @@
       width: 75%;
       height: 38px;
       margin: 0 auto;
-      background: linear-gradient(90deg, rgba(var(--theme-main-rgb), 0.12) 0%, rgba(15, 5, 8, 0.45) 50%, rgba(var(--theme-main-rgb), 0.12) 100%);
+      background: linear-gradient(90deg, rgba(var(--theme-main-rgb), 0.14) 0%, rgba(15, 5, 8, 0.55) 50%, rgba(var(--theme-main-rgb), 0.14) 100%);
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
       border-left: 3px solid var(--theme-main);
@@ -144,6 +346,8 @@
       gap: 55px;
       padding: 45px 50px;
       background: var(--hero-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 3px solid var(--theme-main);
       border-radius: 18px;
       flex-wrap: wrap;
@@ -209,9 +413,9 @@
       transition: all 0.8s ease;
     }
 
-    .nightz-profile-wrapper.offline .nightz-hero,
-    .nightz-profile-wrapper.offline .avatar,
-    .nightz-profile-wrapper.offline .nightz-section {
+    body.offline .nightz-hero,
+    body.offline .avatar,
+    body.offline .nightz-section {
       animation: none;
       box-shadow: 0 0 25px rgba(var(--theme-main-rgb), 0.15), 0 0 10px rgba(0, 0, 0, 0.85);
     }
@@ -347,8 +551,8 @@
       padding: 42px 48px;
       animation: globalGlowShift 4s infinite ease-in-out;
       transition: transform 0.35s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.35s ease, border-color 0.8s ease;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       position: relative;
       z-index: 2;
     }
@@ -492,8 +696,57 @@
 
     .card:hover p { opacity: 1; }
 
-    /* --- Mobile fix --- */
+    /* --- Mobile responsiveness --- */
     @media (max-width: 900px) {
+      .floating-logo {
+        position: relative;
+        top: auto;
+        left: auto;
+        display: flex;
+        justify-content: center;
+        padding: 20px 0 5px;
+        z-index: 1000;
+      }
+
+      .right-nav-dock {
+        position: sticky;
+        top: 10px;
+        right: auto;
+        transform: none !important;
+        margin: 10px auto 0;
+        width: max-content;
+        max-width: 94%;
+        padding: 8px 12px;
+        border-right: 1px solid rgba(57, 255, 20, 0.35);
+        border-radius: 16px;
+      }
+
+      .right-nav-dock::before {
+        display: none;
+      }
+
+      .right-nav-dock ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+      }
+
+      .right-nav-dock a.nav-item {
+        padding: 6px 12px;
+        font-size: 13.5px;
+        border-right: none;
+        border-bottom: 2px solid transparent;
+      }
+
+      .right-nav-dock a.nav-item:hover,
+      .right-nav-dock a.nav-item.active {
+        transform: translateY(-2px);
+        border-right: none;
+        border-bottom: 2px solid #39ff14;
+      }
+
+      .nightz-profile-wrapper { padding: 30px 15px 50px; }
       .nightz-hero { padding: 40px 30px; gap: 35px; }
       .avatar { width: 200px; height: 200px; }
       .hero-text .title { font-size: 2.5em; }
@@ -513,10 +766,35 @@
     }
   </style>
 </head>
-<body>
+<body class="dnd">
 
-  <!-- Theme controller -->
-  <div class="nightz-profile-wrapper dnd">
+  <!-- Dynamic Live-Status Background -->
+  <div class="live-bg" aria-hidden="true">
+    <div class="live-bg-grid"></div>
+    <div class="live-bg-vignette"></div>
+  </div>
+
+  <!-- Top-left floating LiME logo -->
+  <div class="floating-logo">
+    <a href="https://limenetwork.dev/">
+      <img src="./lime-logo-nobg.png" alt="LiME" onerror="if(this.src !== 'https://limenetwork.dev/lime-logo-nobg.png'){this.src='https://limenetwork.dev/lime-logo-nobg.png';}else{this.style.display='none'; this.parentElement.innerText='i';}" />
+    </a>
+  </div>
+
+  <!-- Peek-out right navigation dock -->
+  <nav class="right-nav-dock">
+    <ul>
+      <li><a href="https://limenetwork.dev/" class="nav-item">Info</a></li>
+      <li><a href="https://limenetwork.dev/join" class="nav-item">Join</a></li>
+      <li><a href="https://limenetwork.dev/rules" class="nav-item">Rules</a></li>
+      <li><a href="https://limenetwork.dev/browser" class="nav-item">Browser</a></li>
+      <li><a href="https://limenetwork.dev/staff" class="nav-item active">Staff</a></li>
+      <li><a href="#" class="nav-item">Feedback</a></li>
+    </ul>
+  </nav>
+
+  <!-- Profile content -->
+  <div class="nightz-profile-wrapper">
     <div class="nightz-container">
 
       <div class="nightz-hero">
@@ -531,7 +809,7 @@
           <div class="subtitle">Admin • LiME Network</div>
           <p id="discordCustomStatus">Loading status...</p>
 
-          <a href="https://www.tiktok.com/@randomguy81.9?lang=en" target="_blank" class="cyber-container" title="Visit Nightz mc's TikTok">
+          <a href="https://www.tiktok.com/@randomguy81.9?lang=en" target="_blank" rel="noopener noreferrer" class="cyber-container" title="Visit Nightz mc's TikTok">
             <div class="radio-wrapper">
               <div class="btn">
                 <span aria-hidden="true">_</span>Tiktoc
@@ -596,77 +874,77 @@
 
         <div id="gamesList" class="games-list-container">
           <div class="games-grid">
-            <a href="https://store.steampowered.com/app/1888930/The_Last_of_Us_Part_I/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/1888930/The_Last_of_Us_Part_I/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1888930/header.jpg');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>THE LAST OF US</h1>
                 <p>Action-adventure survival horror across a post-apocalyptic world.</p>
               </div>
             </a>
-            <a href="https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/489830/The_Elder_Scrolls_V_Skyrim_Special_Edition/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/489830/header.jpg');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>SKYRIM</h1>
                 <p>Epic open-world fantasy RPG filled with dragons, magic, and quests.</p>
               </div>
             </a>
-            <a href="https://store.steampowered.com/app/3357650/PRAGMATA/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/3357650/PRAGMATA/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://static.gosugamers.net/13/20/6d/c00ddb33b3f41d3112e86807cfbf2bcd2dd2cb0c8e9fd6e1d7d8803636.webp?w=1440');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>PRAGMATA</h1>
                 <p>Sci-fi action-adventure set in a dystopian near-future lunar world.</p>
               </div>
             </a>
-            <a href="https://store.steampowered.com/app/1962700/Subnautica_2/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/1962700/Subnautica_2/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1962700/header.jpg');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>SUBNAUTICA 2</h1>
                 <p>Next-gen underwater alien ocean survival and deep-sea exploration.</p>
               </div>
             </a>
-            <a href="https://store.steampowered.com/app/4704690/MECCHA_CHAMELEON/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/4704690/MECCHA_CHAMELEON/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4704690/163e2a742e5fb8e1f5d1e3a890da98f04ab809d4/header.jpg?t=1789464996');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>MECCHA CHAMELEON</h1>
                 <p>Advanced hide and seek where you need to paint yourself to stay hidden.</p>
               </div>
             </a>
-            <a href="https://store.steampowered.com/app/1237970/Titanfall_2/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/1237970/Titanfall_2/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1237970/header.jpg');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>TITANFALL</h1>
                 <p>High-speed parkour pilot warfare paired with massive mech combat.</p>
               </div>
             </a>
-            <a href="https://www.roblox.com/" target="_blank" class="card-link">
+            <a href="https://www.roblox.com/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://images.rbxcdn.com/d66ae37d46e00a1ecacfe9531986690a.jpg');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>ROBLOX</h1>
                 <p>Endless multiplayer worlds, custom modes, and hanging out with friends.</p>
               </div>
             </a>
-            <a href="https://www.fortnite.com/" target="_blank" class="card-link">
+            <a href="https://www.fortnite.com/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://cdn2.unrealengine.com/14br-consoles-1920x1080-wlogo-1920x1080-432974386.jpg'), url('https://upload.wikimedia.org/wikipedia/commons/7/7c/Fortnite_F_lettermark_logo.png');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>FORTNITE</h1>
                 <p>Fast-paced battle royale action, zero build fights, and custom islands.</p>
               </div>
             </a>
-            <a href="https://store.steampowered.com/app/2406770/Bodycam/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/2406770/Bodycam/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2406770/header.jpg');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>BODYCAM</h1>
                 <p>Ultra-realistic multiplayer first-person shooter built with next-gen bodycam perspective.</p>
               </div>
             </a>
-            <a href="https://store.steampowered.com/app/1332010/Stray/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/1332010/Stray/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1332010/header.jpg');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>STRAY</h1>
                 <p>Explore a neon-lit cybercity and unravel an ancient mystery as a lost stray cat.</p>
               </div>
             </a>
-            <a href="https://store.steampowered.com/app/322170/Geometry_Dash/" target="_blank" class="card-link">
+            <a href="https://store.steampowered.com/app/322170/Geometry_Dash/" target="_blank" rel="noopener noreferrer" class="card-link">
               <div class="card" style="--bg-img: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/322170/header.jpg');">
                 <div class="align"><span class="red"></span><span class="yellow"></span><span class="green"></span></div>
                 <h1>GEOMETRY DASH</h1>
@@ -694,20 +972,28 @@
         });
       }
 
-      // Live discord integration via Lanyard
+      // Live Discord integration via Lanyard
       var DISCORD_USER_ID = '1106041900303134831';
       var LANYARD_URL = 'https://api.lanyard.rest/v1/users/' + DISCORD_USER_ID;
 
-      var wrapperEl = document.querySelector('.nightz-profile-wrapper');
+      var bodyEl = document.body;
       var avatarGlow = document.getElementById('avatarGlow');
       var avatarImg = document.getElementById('discordAvatar');
       var customStatusEl = document.getElementById('discordCustomStatus');
+      var metaThemeColor = document.getElementById('metaThemeColor');
 
       var statusNames = {
         online: 'Online',
         idle: 'Idle',
         dnd: 'Do Not Disturb',
         offline: 'Offline'
+      };
+
+      var statusColors = {
+        online: '#23a55a',
+        idle: '#f0961e',
+        dnd: '#cc133c',
+        offline: '#80848e'
       };
 
       function fetchDiscordStatus() {
@@ -724,16 +1010,18 @@
 
             var state = data.discord_status || 'offline';
 
-   
-            if (wrapperEl) {
-              wrapperEl.className = 'nightz-profile-wrapper ' + state;
+            if (bodyEl) {
+              bodyEl.className = state;
+            }
+
+            if (metaThemeColor && statusColors[state]) {
+              metaThemeColor.setAttribute('content', statusColors[state]);
             }
 
             if (avatarGlow) {
               avatarGlow.title = ' ' + (statusNames[state] || 'Offline');
             }
 
-            // Offline bio
             if (state === 'offline') {
               if (customStatusEl) customStatusEl.textContent = "";
               return;
@@ -779,7 +1067,7 @@
             }
           })
           .catch(function() {
-            if (wrapperEl) wrapperEl.className = 'nightz-profile-wrapper offline';
+            if (bodyEl) bodyEl.className = 'offline';
             if (customStatusEl) customStatusEl.textContent = "";
           });
       }
