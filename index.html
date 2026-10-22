@@ -1078,28 +1078,31 @@
     .svg-game-card .card-menu { display: flex; gap: 4px; margin-inline: auto; }
     .svg-game-card .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--dot-clr); }
 
-    @media (max-width: 900px) {
-      body { padding: 15px 10px 40px; }
+  @media (max-width: 900px) {
+ 
+      body { padding: 75px 10px 40px; }
 
       .floating-logo {
         position: static;
         display: flex;
         justify-content: center;
-        padding: 5px 0 10px;
+        padding: 5px 0 15px;
       }
 
       .right-nav-dock,
       .right-nav-dock:hover {
         position: fixed;
         top: 10px;
+        left: 50%;
         right: auto;
-        transform: none;
-        border: 1px solid rgba(57, 255, 20, 0.28);
+        transform: translateX(-50%);
+        border: 1px solid rgba(57, 255, 20, 0.35);
         border-radius: 16px;
-        margin: 0 auto 25px;
+        margin: 0;
         width: max-content;
-        max-width: 94%;
-        padding: 8px 12px;
+        max-width: 95vw;
+        padding: 6px 10px;
+        z-index: 9999;
       }
 
       .right-nav-dock::before,
@@ -1109,14 +1112,22 @@
 
       .right-nav-dock ul {
         flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 6px;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        gap: 4px;
+        overflow-x: auto; /* Ai fixing mobile ui for me */
+        max-width: 100%;
+        scrollbar-width: none; 
+      }
+
+      .right-nav-dock ul::-webkit-scrollbar {
+        display: none; 
       }
 
       .right-nav-dock a.wsite-menu-item {
-        padding: 6px 12px;
-        font-size: 13.5px;
+        padding: 6px 10px;
+        font-size: 13px;
+        white-space: nowrap;
         border-right: none;
         border-bottom: 2px solid transparent;
       }
