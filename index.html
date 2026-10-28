@@ -31,7 +31,22 @@
       --shape-color-03: #fdd053;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  cursor: url('./skyrim-normal.png') 0 0, auto !important;
+}
+
+a, a *, button, button *, label, label *, [role="button"],
+.gear-button, .mechanics-close, .avatar-container, .avatar-container *,
+.switch-3d-cyan, .switch-3d-cyan *, .clock-container, .clock-container *,
+.dynamic-display.has-game, .dynamic-display.has-game *,
+.win95-vinyl-wrap, .win95-vinyl-wrap *, .ctrl-play,
+.playstation-input a.ps-btn, .playstation-input a.ps-btn *,
+.game-btn, .svg-game-card, .svg-game-card * {
+  cursor: url('./skyrim-link.png') 0 0, pointer !important;
+}
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
