@@ -895,7 +895,7 @@
       text-overflow: ellipsis;
     }
 
-    .win95-vinyl-wrap {
+.win95-vinyl-wrap {
       position: absolute;
       z-index: 1; 
       left: -22px;
@@ -903,7 +903,7 @@
       transform: translateY(-50%);
       width: 70px;
       height: 70px;
-      display: none; /* Hidden when no song is playing */
+      display: none; 
       align-items: center;
       justify-content: center;
       cursor: pointer;
@@ -918,7 +918,7 @@
       border-radius: 50%;
       border: 3px solid #3f3f46;
       background: #0b0b0b;
-      box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.85), 0 0 14px rgba(0, 255, 204, 0.35);
+      box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.85); /* Zero glow */
       animation: vinylSpin 3s linear infinite;
       overflow: hidden;
       display: flex;
@@ -928,12 +928,12 @@
     }
 
     .win95-vinyl-wrap:hover {
-      left: -58px; 
+      left: -58px; /* Slides out on hover */
     }
 
     .win95-vinyl-wrap:hover .win95-vinyl-disc {
       transform: translateY(-50%) scale(1.15) rotate(-10deg);
-      box-shadow: -6px 6px 20px rgba(0, 0, 0, 0.9), 0 0 22px rgba(0, 255, 204, 0.6);
+      box-shadow: -6px 6px 20px rgba(0, 0, 0, 0.9); /* Zero glow on hover */
     }
 
     .win95-vinyl-cover {
